@@ -35,7 +35,7 @@ myButton.addEventListener( "click", function() {
     
         while(firstResponse == "yes" || firstResponse == "Yes"){
     
-            response = prompt('1 - Games \n2 - Store \n3- My Cart items: '+items+' \n4- About us')
+            response = prompt('1 - Games \n2 - Store \n3- My Cart items: '+items+' \n4- About us\n5-Pay')
         
             switch (response) {
                 case "1":
@@ -50,6 +50,11 @@ myButton.addEventListener( "click", function() {
                 case "4":
                     aboutUs()
                     break;
+                case "5":
+                    payCart()
+                    break;
+                default:
+                    alert("Thats not an option, take a look again")
             }
             
             firstResponse = prompt("Do you want to continue? Yes or No")
@@ -99,28 +104,39 @@ function funnyInteract(){
 
     switch (firstTime){
         case 1:
-            alert("Hello fellow traveller, time no seen\nLook at what treasures we have here")
+            alert("Hello fellow traveller, time no seen\nLook at what treasures we have here (°▽°)/ ")
             break;
         case 2:
-            alert("Hello fellow, you miss something?\nTake a look")
+            alert("Hello fellow, you miss something?\nTake a look ( ´ ▽ ` )ﾉ ")
             break;
         case 3:
-            alert("Hey you, i see, need something else?")
+            alert("Hey you, i see, need something else? (´• ω •`)ﾉ ")
             break;
         case 4:
-            alert("I know we have our story fellow, but stop, take a look and lets finish this ")
+            alert("I know we have our story fellow, but stop, take a look and lets finish this (っಠ‿ಠ)っ ")
             break;
         case 5:
-            alert("Im starting to thing you won't stop doing this")
+            alert("Im starting to thing you won't stop doing this \n|_・) ")
             break;
         case 6:
             if(items>2){
-                alert("OH COME ONE, HOW MANY COPYS YOU WANT")
+                alert("OH COME ONE, HOW MANY COPYS YOU WANT (ノʘ言ʘ)ﾉ")
             }
             else if(items==1){
-                alert("Take the game and leave pleaase")
+                alert("Take the game and leave pleaase (*°ｰ°)ﾉ")
             }
-            else alert("Are you joking? Stops asking if you are not taking anygame fellow")
+            else alert("Are you joking? Stops asking if you are not taking anygame fellow (┛◉Д◉)┛彡┻━┻ ")
+            break;
+        case 7:
+            alert("Well you win... take a look or do what you want... ( ・・)つ-●●●  ")
+            break;
+        default:
+            break;
     }
 
+}
+function payCart(){
+    //for the fun of this, i only put to 0 the variables
+    total = 0
+    items = 0
 }
