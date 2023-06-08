@@ -1,6 +1,7 @@
 //Global Variables
 let total = 0
 let items = 0
+let firstTime = 0
 const myButton = document.getElementById("myButton");
 
 //Arrow functions
@@ -64,8 +65,8 @@ function gameMenu() {
     let menuResponse
     let cantidadItems
 
-    alert("Hello fellow traveller, time no seen")
-    alert("Look at what treasures we have here")
+    funnyInteract()
+    
     menuResponse = parseInt(prompt("1- Final fantasy 1 original edition\n2- Final fantasy 12 special edition\n3- Final fantasy 7 overrated edition\n4- Final Fantasy 9 gold edition goty fifi-lovers edition\n\nWhat do you wanna choose?"))
     if(menuResponse>0 && menuResponse<5){cantidadItems = parseInt(prompt("How many copys you want?"))}
     switch (menuResponse) {
@@ -93,3 +94,33 @@ function aboutUs(){
     alert("Welcome to our Final Fantasy Store, the ultimate destination for fans and enthusiasts of the iconic Final Fantasy franchise. Immerse yourself in a world of captivating adventures and memorable characters as you explore our extensive collection of Final Fantasy games. From the classics that started it all to the latest releases, we have something for everyone. With multiple physical locations, our stores offer a unique shopping experience where you can browse exclusive merchandise, connect with fellow fans, and discover the magic of Final Fantasy. Our knowledgeable and friendly staff are here to assist you, whether you're seeking to relive nostalgic moments or embark on new journeys. Beyond games, we also offer a wide range of merchandise, including collectibles, apparel, soundtracks, and artbooks, allowing you to showcase your love for Final Fantasy in style.")
 }
 
+function funnyInteract(){
+    firstTime = firstTime + 1
+
+    switch (firstTime){
+        case 1:
+            alert("Hello fellow traveller, time no seen\nLook at what treasures we have here")
+            break;
+        case 2:
+            alert("Hello fellow, you miss something?\nTake a look")
+            break;
+        case 3:
+            alert("Hey you, i see, need something else?")
+            break;
+        case 4:
+            alert("I know we have our story fellow, but stop, take a look and lets finish this ")
+            break;
+        case 5:
+            alert("Im starting to thing you won't stop doing this")
+            break;
+        case 6:
+            if(items>2){
+                alert("OH COME ONE, HOW MANY COPYS YOU WANT")
+            }
+            else if(items==1){
+                alert("Take the game and leave pleaase")
+            }
+            else alert("Are you joking? Stops asking if you are not taking anygame fellow")
+    }
+
+}
