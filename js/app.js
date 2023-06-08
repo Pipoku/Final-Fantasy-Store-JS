@@ -1,8 +1,6 @@
 //Global Variables
 let total = 0
 let items = 0
-let response
-let firstResponse = ""
 const myButton = document.getElementById("myButton");
 
 //Arrow functions
@@ -21,6 +19,10 @@ let showTotal = () =>{
 
 //Beginning :D
 myButton.addEventListener( "click", function() {
+    //Local Variables
+    let firstResponse = ""
+    let response
+    
     alert("Welcome to Final Fantasy World Pre-Idea Store!")
     alert("Here you will find anything that you need, for the adventure!")
     firstResponse = prompt("Do you wanna start? Yes or No ")
