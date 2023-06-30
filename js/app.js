@@ -1,21 +1,20 @@
+import itemList from "./Classes/itemList/itemList.js"
 //Global Variables
-let total = 0
-let items = 0
+let items = new itemList();
 let firstTime = 0
 const myButton = document.getElementById("myButton");
 
 //Arrow functions
-let calculateTotal = (precio,cantidad=1) =>{ total = total + precio * cantidad; items = items + cantidad}
-
 let showTotal = () =>{ 
 
-    if(total>=99.99) {
-        alert("Wow traveller, you will have a nice adventure, total = $"+total)
+    if(items.totalPrice>=parseFloat(99.99)) {
+        alert("Wow traveller, you will have a nice adventure, total = $"+items.totalPrice)
     }
-    else if (total > 0 && total <= 99.99) {
-        alert("Well traveller, your total is $"+total)
+    else if (items.totalPrice > 0 && items.totalPrice <= 99.99) {
+        alert("Well traveller, your total is $"+items.totalPrice)
     }
     else alert("You have nothing in your inventory :( ")
+    alert(items.getItemsAsString())
 }
 
 //Beginning :D
@@ -26,38 +25,43 @@ myButton.addEventListener( "click", function() {
     
     alert("Welcome to Final Fantasy World Pre-Idea Store!")
     alert("Here you will find anything that you need, for the adventure!")
-    firstResponse = prompt("Do you wanna start? Yes or No ")
+    firstResponse = prompt("Do you wanna start? Yes or No ").toLowerCase()
     
-    if(firstResponse == "Yes" || firstResponse == "yes"){
+    if(firstResponse == "yes"){
     
         alert("Let the fun begging!")
         alert("Here you can see the options, choose wisely but don't be afraid to do more than one!")
     
-        while(firstResponse == "yes" || firstResponse == "Yes"){
-    
-            response = prompt('1 - Games \n2 - Store \n3- My Cart items: '+items+' \n4- About us\n5-Pay')
+        while(firstResponse == "yes"){
+            if(items.numberOfItems===undefined){
+               response = prompt('1 - Games \n2 - Store \n3- My Cart items: '+0+' \n4- About us\n5-Pay')
+            } else response = prompt('1 - Games \n2 - Store \n3- My Cart items: '+items.numberOfItems+' \n4- About us\n5-Pay')
         
             switch (response) {
                 case "1":
-                    gameMenu()
+                    gameMenu(true)
                     break;
                 case "2":
                     stores()
                     break;
                 case "3":
                     showTotal()
+                    response = prompt("Do you wanna decrement the number of items? Yes or No").toLowerCase()
+                    if(response == "yes"){
+                        gameMenu(false)
+                    }
                     break;
                 case "4":
                     aboutUs()
                     break;
                 case "5":
                     payCart()
-                    break;
+                    return
                 default:
                     alert("Thats not an option, take a look again")
             }
             
-            firstResponse = prompt("Do you want to continue? Yes or No")
+            firstResponse = prompt("Do you want to continue? Yes or No").toLowerCase()
         }
         alert("Hope we see meet again fellow, good travell!")
     }
@@ -65,28 +69,45 @@ myButton.addEventListener( "click", function() {
 
 
 //Classic Functions
-function gameMenu() {
+function gameMenu(flag) {
     //local Variables
     let menuResponse
-    let cantidadItems
+    let quantityItems
 
     funnyInteract()
     
     menuResponse = parseInt(prompt("1- Final fantasy 1 original edition\n2- Final fantasy 12 special edition\n3- Final fantasy 7 overrated edition\n4- Final Fantasy 9 gold edition goty fifi-lovers edition\n\nWhat do you wanna choose?"))
-    if(menuResponse>0 && menuResponse<5){cantidadItems = parseInt(prompt("How many copys you want?"))}
+    if(menuResponse>0 && menuResponse<5){quantityItems = parseInt(prompt("How many copys you want?"))}
     switch (menuResponse) {
+
         case 1:
-            calculateTotal(59.99,cantidadItems)
+            if(flag){
+                if(items.isItemExists("Final fantasy 1 original edition")){
+                    items.incrementItemQuantity("Final fantasy 1 original edition",quantityItems)
+                } else items.newItem("Final fantasy 1 original edition",parseFloat(59.99),"10cm x 7cm",quantityItems)
+            } else items.decrementItemQuantity("Final fantasy 1 original edition",quantityItems)
             break;
         case 2:
-            calculateTotal(79.99,cantidadItems)
+            if(flag){
+                if(items.isItemExists("Final fantasy 12 special edition")){
+                    items.incrementItemQuantity("Final fantasy 12 special edition",quantityItems)
+                } else items.newItem("Final fantasy 12 special edition",parseFloat(79.99),"10cm x 7cm",quantityItems)
+            } else items.decrementItemQuantity("Final fantasy 12 special edition",quantityItems)
             break;
         case 3:
-           calculateTotal(7.77,cantidadItems)
+            if(flag){
+                if(items.isItemExists("Final fantasy 7 overrated edition")){
+                    items.incrementItemQuantity("Final fantasy 7 overrated edition",quantityItems)
+                } else items.newItem("Final fantasy 7 overrated edition",parseFloat(7.77),"10cm x 7cm",quantityItems)
+            } else items.decrementItemQuantity("Final fantasy 7 overrated edition",quantityItems)
             break;
         case 4:
-            calculateTotal(99.99,cantidadItems)
-            alert("You know what is good fellow")
+            if(flag){
+                if(items.isItemExists("Final Fantasy 9 gold edition goty fifi-lovers edition")){
+                    items.incrementItemQuantity("Final Fantasy 9 gold edition goty fifi-lovers edition",quantityItems)
+                } else items.newItem("Final Fantasy 9 gold edition goty fifi-lovers edition",parseFloat(99.99),"10cm x 7cm",quantityItems)
+                alert("You know what is good fellow")
+            } else items.decrementItemQuantity("Final Fantasy 9 gold edition goty fifi-lovers edition",quantityItems)
             break;
     }
 }
@@ -119,10 +140,10 @@ function funnyInteract(){
             alert("Im starting to thing you won't stop doing this \n|_・) ")
             break;
         case 6:
-            if(items>2){
+            if(items.numberOfItems>2 && items.numberOfItems !== undefined){
                 alert("OH COME ONE, HOW MANY COPYS YOU WANT (ノʘ言ʘ)ﾉ")
             }
-            else if(items==1){
+            else if(items.numberOfItems==1 && items.numberOfItems !== undefined){
                 alert("Take the game and leave pleaase (*°ｰ°)ﾉ")
             }
             else alert("Are you joking? Stops asking if you are not taking anygame fellow (┛◉Д◉)┛彡┻━┻ ")
@@ -136,7 +157,15 @@ function funnyInteract(){
 
 }
 function payCart(){
-    //for the fun of this, i only put to 0 the variables
-    total = 0
-    items = 0
+    const bodyTabla = document.querySelector('#items tbody');
+
+    // Clear the tbody content
+    bodyTabla.innerHTML = '';
+
+    // Generate the table rows and append them to the tbody
+    bodyTabla.innerHTML = items.getItemsAsHtml();
+
+    items.resetQuantities()
+    firstTime = 0
+
 }
