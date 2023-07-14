@@ -3,7 +3,12 @@ import itemList from "./Classes/itemList/itemList.js"
 let items = new itemList();
 let firstTime = 0
 const myButton = document.getElementById("myButton");
+const cartItemsJSON = localStorage.getItem('cartItems');
+let cartItems = [];
 
+if (cartItemsJSON) {
+  cartItems = JSON.parse(cartItemsJSON).items;
+}
 //Arrow functions
 let showTotal = () =>{ 
 
@@ -16,7 +21,15 @@ let showTotal = () =>{
     else alert("You have nothing in your inventory :( ")
     alert(items.getItemsAsString())
 }
-
+// Check sessionStorage on page load
+window.addEventListener('DOMContentLoaded', function() {
+    var username = sessionStorage.getItem('username');
+    if (username) {
+      var loginLink = document.getElementById('login');
+      loginLink.innerHTML = username;
+      loginLink.setAttribute("id","user_activated");
+    }
+  });
 //Beginning :D
 myButton.addEventListener( "click", function() {
     //Local Variables
@@ -36,7 +49,7 @@ myButton.addEventListener( "click", function() {
             if(items.numberOfItems===undefined){
                response = prompt('1 - Games \n2 - Store \n3- My Cart items: '+0+' \n4- About us\n5-Pay')
             } else response = prompt('1 - Games \n2 - Store \n3- My Cart items: '+items.numberOfItems+' \n4- About us\n5-Pay')
-        
+            displayCartItems()
             switch (response) {
                 case "1":
                     gameMenu(true)
@@ -67,7 +80,6 @@ myButton.addEventListener( "click", function() {
     }
 })
 
-
 //Classic Functions
 function gameMenu(flag) {
     //local Variables
@@ -75,6 +87,7 @@ function gameMenu(flag) {
     let quantityItems
 
     funnyInteract()
+    fillClassArray();
     
     menuResponse = parseInt(prompt("1- Final fantasy 1 original edition\n2- Final fantasy 12 special edition\n3- Final fantasy 7 overrated edition\n4- Final Fantasy 9 gold edition goty fifi-lovers edition\n\nWhat do you wanna choose?"))
     if(menuResponse>0 && menuResponse<5){quantityItems = parseInt(prompt("How many copys you want?"))}
@@ -84,28 +97,28 @@ function gameMenu(flag) {
             if(flag){
                 if(items.isItemExists("Final fantasy 1 original edition")){
                     items.incrementItemQuantity("Final fantasy 1 original edition",quantityItems)
-                } else items.newItem("Final fantasy 1 original edition",parseFloat(59.99),"10cm x 7cm",quantityItems)
+                } 
             } else items.decrementItemQuantity("Final fantasy 1 original edition",quantityItems)
             break;
         case 2:
             if(flag){
                 if(items.isItemExists("Final fantasy 12 special edition")){
                     items.incrementItemQuantity("Final fantasy 12 special edition",quantityItems)
-                } else items.newItem("Final fantasy 12 special edition",parseFloat(79.99),"10cm x 7cm",quantityItems)
+                } 
             } else items.decrementItemQuantity("Final fantasy 12 special edition",quantityItems)
             break;
         case 3:
             if(flag){
                 if(items.isItemExists("Final fantasy 7 overrated edition")){
                     items.incrementItemQuantity("Final fantasy 7 overrated edition",quantityItems)
-                } else items.newItem("Final fantasy 7 overrated edition",parseFloat(7.77),"10cm x 7cm",quantityItems)
+                } 
             } else items.decrementItemQuantity("Final fantasy 7 overrated edition",quantityItems)
             break;
         case 4:
             if(flag){
                 if(items.isItemExists("Final Fantasy 9 gold edition goty fifi-lovers edition")){
                     items.incrementItemQuantity("Final Fantasy 9 gold edition goty fifi-lovers edition",quantityItems)
-                } else items.newItem("Final Fantasy 9 gold edition goty fifi-lovers edition",parseFloat(99.99),"10cm x 7cm",quantityItems)
+                } else alert("Game is not added!")
                 alert("You know what is good fellow")
             } else items.decrementItemQuantity("Final Fantasy 9 gold edition goty fifi-lovers edition",quantityItems)
             break;
@@ -119,7 +132,16 @@ function stores(){
 function aboutUs(){
     alert("Welcome to our Final Fantasy Store, the ultimate destination for fans and enthusiasts of the iconic Final Fantasy franchise. Immerse yourself in a world of captivating adventures and memorable characters as you explore our extensive collection of Final Fantasy games. From the classics that started it all to the latest releases, we have something for everyone. With multiple physical locations, our stores offer a unique shopping experience where you can browse exclusive merchandise, connect with fellow fans, and discover the magic of Final Fantasy. Our knowledgeable and friendly staff are here to assist you, whether you're seeking to relive nostalgic moments or embark on new journeys. Beyond games, we also offer a wide range of merchandise, including collectibles, apparel, soundtracks, and artbooks, allowing you to showcase your love for Final Fantasy in style.")
 }
-
+function fillClassArray() {
+    if(items.length === undefined){
+        console.log(items)
+        items.newItem("Final fantasy 1 original edition",parseFloat(59.99),"10cm x 7cm")
+        items.newItem("Final fantasy 12 special edition",parseFloat(79.99),"10cm x 7cm")
+        items.newItem("Final fantasy 7 overrated edition",parseFloat(7.77),"10cm x 7cm")
+        items.newItem("Final Fantasy 9 gold edition goty fifi-lovers edition",parseFloat(99.99),"10cm x 7cm",0)
+        console.log(items)
+    }
+  }
 function funnyInteract(){
     firstTime = firstTime + 1
 
@@ -156,9 +178,23 @@ function funnyInteract(){
     }
 
 }
+
+function displayCartItems() {
+    // Update the cart quantity
+    const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+    cartQuantity.textContent = totalQuantity;
+    console.log(totalQuantity)
+    // Show or hide the cart section based on the cart's item count
+    if (totalQuantity > 0) {
+      cartSection.style.display = 'block'; // Show the cart section
+    } else {
+      cartSection.style.display = 'none'; // Hide the cart section
+    }
+}
+
 function payCart(){
     const bodyTabla = document.querySelector('#items tbody');
-
+    localStorage.setItem('cart',JSON.stringify(items))
     // Clear the tbody content
     bodyTabla.innerHTML = '';
 

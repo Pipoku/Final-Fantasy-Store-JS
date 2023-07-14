@@ -3,15 +3,27 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <link rel="stylesheet" href="./src/css/style.css">
     <title>FinalFantasy Store</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 </head>
 <body>
     
-    <section style="width:700px; display: flex; align-items: center;flex-direction: column;gap:30px;margin: 0 auto">
+    <section id="main">
         <h1>Welcome to Final Fantasy World Pre-Idea Store!</h1>
-        <img src="./src/imgs/Fifi.gif" alt="">
-        <button id="myButton" style="width:100px;height:50px;border-radius: 10px;">Lets start!</button>
+        <div>
+            <a href="./src/pages/Login/Login.html" id="login">Login</a>
+            <div id="cartSection" style="display: none;">
+                <div id="cartIcon">
+                  <i class="fas fa-shopping-cart"></i>
+                  <span id="cartQuantity"></span>
+                </div>
+              </div>            
+        </div>
+        <div id="section__body">
+            <img src="./src/imgs/Fifi.gif" alt="">
+            <button id="myButton" style="width:100px;height:50px;border-radius: 10px;">Lets start!</button>    
+        </div>
     </section>
     <section >
         <table id="items" style="width:500px;"">

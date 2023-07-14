@@ -7,10 +7,10 @@ export default class itemList {
       this.items = []
     }
 
-    newItem(nam,pri,siz,quan){
+    newItem(nam,pri,siz){
       let p = new item(nam,pri,siz)
       
-      this.items.push({"item":p,"quantity":quan})
+      this.items.push({"item":p,"quantity":0})
       
       return 1;
     }
