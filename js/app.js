@@ -27,7 +27,7 @@ window.addEventListener('DOMContentLoaded', function() {
     if (username) {
       var loginLink = document.getElementById('login');
       loginLink.innerHTML = username;
-      loginLink.setAttribute("id","user_activated");
+      loginLink.setAttribute("id","user_activated login");
     }
   });
 //Beginning :D
@@ -134,12 +134,10 @@ function aboutUs(){
 }
 function fillClassArray() {
     if(items.length === undefined){
-        console.log(items)
         items.newItem("Final fantasy 1 original edition",parseFloat(59.99),"10cm x 7cm")
         items.newItem("Final fantasy 12 special edition",parseFloat(79.99),"10cm x 7cm")
         items.newItem("Final fantasy 7 overrated edition",parseFloat(7.77),"10cm x 7cm")
         items.newItem("Final Fantasy 9 gold edition goty fifi-lovers edition",parseFloat(99.99),"10cm x 7cm",0)
-        console.log(items)
     }
   }
 function funnyInteract(){
@@ -181,9 +179,14 @@ function funnyInteract(){
 
 function displayCartItems() {
     // Update the cart quantity
-    const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+    console.log(cartItems)
+    let totalQuantity = 0
+    totalQuantity = cartItems.forEach(item => {
+        console.log(item.quantity)
+        totalQuantity += item.quantity
+        console.log(item);
+      });
     cartQuantity.textContent = totalQuantity;
-    console.log(totalQuantity)
     // Show or hide the cart section based on the cart's item count
     if (totalQuantity > 0) {
       cartSection.style.display = 'block'; // Show the cart section

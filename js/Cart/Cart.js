@@ -1,5 +1,5 @@
 // Retrieve cart items from localStorage
-const cartItems = JSON.parse(localStorage.getItem('cart')).items || [];
+const cart = JSON.parse(localStorage.getItem('cart')).items || [];
 
 // Get the cartItems container element
 const cartItemsContainer = document.getElementById('cartItems');
@@ -13,10 +13,10 @@ function displayCartItems() {
   cartItemsContainer.innerHTML = '';
 
   // Display cart items
-  if (cartItems.length === 0) {
+  if (cart.length === 0) {
     cartItemsContainer.textContent = 'No items in the cart.';
   } else {
-    cartItems.forEach(item => {
+    cart.forEach(item => {
       const itemCard = document.createElement('div');
       itemCard.classList.add('item-card');
 
@@ -47,12 +47,12 @@ const resetButton = document.getElementById('resetButton');
 // Reset button click event handler
 resetButton.addEventListener('click', function() {
   // Reset all item quantities to 0
-  cartItems.forEach(item => {
+  cart.forEach(item => {
     item.quantity = 0;
   });
 
   // Update localStorage with the updated cart items
-  localStorage.setItem('cart', JSON.stringify({ items: cartItems }));
+  localStorage.setItem('cart', JSON.stringify({ items: cart }));
 
   // Reload the page to display the updated cart items
   location.reload();

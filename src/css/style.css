@@ -10,7 +10,7 @@
     gap:30px;
     margin: 0 auto
 }
-a {
+a#user_activated\ login {
     position: absolute;
     right: 6%;
     top: 3%;
@@ -20,7 +20,7 @@ button#login {
     width: 130px;
     height: 30px;
 }
-#user_activated {
+a#user_activated\ login {
     pointer-events: none;
     text-decoration: none;
     font-size: 25px;
