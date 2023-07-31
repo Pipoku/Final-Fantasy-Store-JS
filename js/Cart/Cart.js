@@ -109,6 +109,55 @@ let clearCart = () => {
   localStorage.setItem("data", JSON.stringify(basket));
 };
 
+let saveCart = async () => {
+  const dataFromLocalStorage = localStorage.getItem('data');
+
+      // Parse the data from localStorage into an array
+      const parsedData = JSON.parse(dataFromLocalStorage);
+
+      // Convert the data to the required format for saving
+      const transformedData = parsedData.map(({ id, item }) => {
+        return { [id]: item };
+      });
+
+      // Convert the transformed data to a JSON string
+      const jsonData = JSON.stringify(transformedData, null, 2);
+
+      // Add a thanks message at the beginning of the JSON data
+      const thanksMessage = 'Thanks for buying!\n\n';
+      const jsonDataWithThanks = thanksMessage + jsonData;
+
+      // Create a Blob with the JSON data
+      const blob = new Blob([jsonDataWithThanks], { type: 'application/json' });
+
+      // Create an object URL for the Blob
+      const blobURL = URL.createObjectURL(blob);
+
+      try {
+        // Fetch the Blob data
+        const response = await fetch(blobURL);
+
+        // Convert the response to a Blob
+        const fileBlob = await response.blob();
+
+        // Create a link (anchor) element with the Blob URL
+        const downloadLink = document.createElement('a');
+        downloadLink.href = URL.createObjectURL(fileBlob);
+        downloadLink.download = 'ticket.json'; // Specify the filename for the JSON file
+
+        // Trigger the download by simulating a click on the link
+        downloadLink.click();
+
+        // Cleanup: Revoke the object URLs
+        URL.revokeObjectURL(blobURL);
+        URL.revokeObjectURL(downloadLink.href);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+
+    clearCart();
+}
+
 let TotalAmount = () => {
   if (basket.length !== 0) {
     let amount = basket
@@ -122,7 +171,7 @@ let TotalAmount = () => {
     // console.log(amount);
     label.innerHTML = `
     <h2>Total : $ ${amount}</h2>
-    <button onclick="clearCart()" class="checkout">Checkout</button>
+    <button onclick="saveCart()" class="checkout" id="checkout">Checkout</button>
     <button onclick="clearCart()" class="removeAll">Clear Cart</button>
     `;
   } else return;
