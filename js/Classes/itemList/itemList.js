@@ -84,25 +84,41 @@ export default class itemList {
         });
     }
 
-    getItemsAsHtml(){
-        const bodyTabla = document.getElementById('items')
-        bodyTabla.innerHTML = ``;
+      getItemsAsHtml() {
+      const bodyTabla = document.getElementById('items');
+      bodyTabla.innerHTML = ``;
+    
+      // Add Bootstrap table and table header classes
+      bodyTabla.innerHTML += `<table class="table table-bordered">
+        <thead>
+          <tr>
+            <th><h3>Name</h3></th>
+            <th><h3>Price</h3></th>
+            <th><h3>Quantity</h3></th>
+          </tr>
+        </thead>
+        <tbody>`;
+    
+      this.sortItemsByName();
+      this.items.forEach(item => {
+        const { name, price } = item.item;
+        const quantity = item.quantity;
         bodyTabla.innerHTML += `<tr>
-        <td><h3>Name</h3></td>
-        <td><h3>Price</h3></td>
-        <td><h3>Quantity</h3></td>
-     </tr>`;
-        this.sortItemsByName()
-        this.items.forEach(item => {
-            const { name, price } = item.item;
-            const quantity = item.quantity;
-            bodyTabla.innerHTML += `<tr>
-                        <td>${name}</td>
-                        <td>$${price}</td>
-                        <td>${quantity}</td>
-                     </tr>`;
-          });
-        
-          return bodyTabla;
+          <td>${name}</td>
+          <td>$${price}</td>
+          <td>${quantity}</td>
+        </tr>`;
+      });
+    
+      // Close the table body and table tags
+      bodyTabla.innerHTML += `</tbody></table>`;
+    
+      // Add Bootstrap container class (optional, depends on your layout)
+      const containerDiv = document.createElement('div');
+      containerDiv.classList.add('container');
+      containerDiv.appendChild(bodyTabla);
+    
+      return containerDiv;
     }
+    
 }

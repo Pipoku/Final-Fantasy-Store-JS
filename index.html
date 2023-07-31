@@ -1,44 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <link rel="stylesheet" href="./src/css/style.css">
-    <title>FinalFantasy Store</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Final Fantasy Store</title>
+  <link rel="stylesheet" href="./src/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap">
 </head>
+
 <body>
-    
-    <section id="main">
-        <h1>Welcome to Final Fantasy World Pre-Idea Store!</h1>
-        <div >
-            <a href="./src/pages/Login/Login.html" id="login">Login</a>
-            <div id="cartSection" style="display: none;">
-                <div id="cartIcon">
-                  <i class="fas fa-shopping-cart"></i>
-                  <span id="cartQuantity"></span>
-                </div>
-              </div>            
-        </div>
-        <div id="section__body">
-            <img src="./src/imgs/Fifi.gif" alt="">
-            <button id="myButton" style="width:100px;height:50px;border-radius: 10px;">Lets start!</button>    
-            <a href="./src/pages/Cart/Cart.html" id="cart">Cart</a>
-        </div>
-    </section>
-    <section >
-        <table id="items" style="width:500px;"">
-            <thead>
-              <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </section>
-    <script type="module" src="./js/app.js"></script>
+  <div class="navbar">
+    <a href="index.html">
+      <h2>Final Fantasy Store</h2>
+    </a>
+  <div id="right_top_navbar">
+    <a href="./src/pages/Cart/cart.html">
+      <div class="cart">
+        <i class="bi bi-cart2"></i>
+        <div id="cartAmount" class="cartAmount">0</div>
+      </div>
+    </a>
+    <a href="./src/pages/Login/Login.html" id="login">Login</a>
+  </div>
+  </div>
+  <div id="section__body">
+    <img src="../src/images/Fifi.gif" alt=""> 
+    <div id="cuerpoFifi">
+      <p>Wellcome fellow stranger</p>
+      <p>Feel like home and relax</p>
+      <p>Enjoy our little storage!</p>
+    </div>
+
+</div>
+  <div class="shop" id="shop">
+
+
+  </div>
+
 </body>
+<script src="./js/Data/Data.js"></script>
+<script src="./js/Main/main.js"></script>
+
 </html>

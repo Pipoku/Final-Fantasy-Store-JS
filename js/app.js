@@ -3,12 +3,10 @@ import itemList from "./Classes/itemList/itemList.js"
 let items = new itemList();
 let firstTime = 0
 const myButton = document.getElementById("myButton");
-const cartItemsJSON = localStorage.getItem('cartItems');
+const cartItemsJSON = localStorage.getItem('cart');
 let cartItems = [];
 
-if (cartItemsJSON) {
-  cartItems = JSON.parse(cartItemsJSON).items;
-}
+
 //Arrow functions
 let showTotal = () =>{ 
 
@@ -35,7 +33,6 @@ myButton.addEventListener( "click", function() {
     //Local Variables
     let firstResponse = ""
     let response
-    
     alert("Welcome to Final Fantasy World Pre-Idea Store!")
     alert("Here you will find anything that you need, for the adventure!")
     firstResponse = prompt("Do you wanna start? Yes or No ").toLowerCase()
@@ -49,7 +46,6 @@ myButton.addEventListener( "click", function() {
             if(items.numberOfItems===undefined){
                response = prompt('1 - Games \n2 - Store \n3- My Cart items: '+0+' \n4- About us\n5-Pay')
             } else response = prompt('1 - Games \n2 - Store \n3- My Cart items: '+items.numberOfItems+' \n4- About us\n5-Pay')
-            displayCartItems()
             switch (response) {
                 case "1":
                     gameMenu(true)
@@ -75,6 +71,10 @@ myButton.addEventListener( "click", function() {
             }
             
             firstResponse = prompt("Do you want to continue? Yes or No").toLowerCase()
+        }
+        if (cartItemsJSON) {
+            cartItems = JSON.parse(cartItemsJSON).items;
+            displayCartItems()
         }
         alert("Hope we see meet again fellow, good travell!")
     }
@@ -179,7 +179,6 @@ function funnyInteract(){
 
 function displayCartItems() {
     // Update the cart quantity
-    console.log(cartItems)
     let totalQuantity = 0
     totalQuantity = cartItems.forEach(item => {
         console.log(item.quantity)
@@ -187,11 +186,14 @@ function displayCartItems() {
         console.log(item);
       });
     cartQuantity.textContent = totalQuantity;
+  
+    const cartSection = document.getElementById('cartSection');
+    console.log('putala wea' + totalQuantity)
     // Show or hide the cart section based on the cart's item count
     if (totalQuantity > 0) {
-      cartSection.style.display = 'block'; // Show the cart section
+      cartSection.style.visibility = 'visible'; // Show the cart section
     } else {
-      cartSection.style.display = 'none'; // Hide the cart section
+      cartSection.style.display = 'hidden'; // Hide the cart section
     }
 }
 
